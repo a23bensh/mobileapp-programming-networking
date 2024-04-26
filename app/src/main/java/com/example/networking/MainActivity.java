@@ -2,6 +2,7 @@ package com.example.networking;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,6 +17,8 @@ public class MainActivity extends AppCompatActivity implements JsonTask.JsonTask
 
     private ArrayList<Mountain> mountainArrayList=new ArrayList<>();
 
+    ArrayList<RecyclerViewItem> RecyclerViewItem = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +30,13 @@ public class MainActivity extends AppCompatActivity implements JsonTask.JsonTask
         mountainArrayList.add(new Mountain("Mont Blanc","Alps",4808));
         mountainArrayList.add(new Mountain("Denali","Alaska",6190));
     }
+
+    RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, RecyclerViewItem, new RecyclerViewAdapter.OnClickListener() {
+        @Override
+        public void onClick(RecyclerViewItem item) {
+            Toast.makeText(MainActivity.this, item.getTitle(), Toast.LENGTH_SHORT).show();
+        }
+    });
 
     @Override
     public void onPostExecute(String json) {
